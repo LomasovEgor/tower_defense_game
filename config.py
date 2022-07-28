@@ -6,14 +6,19 @@ bk_HEIGHT = 40
 bk_COLOR = colors.GREEN
 
 # map
-map_WIDTH = 12
-map_HEIGHT = 12
-map_WIDTH_pixels = map_WIDTH * bk_WIDTH
-map_HEIGHT_pixels = map_HEIGHT * bk_HEIGHT
+map_block_WIDTH = 12
+map_block_HEIGHT = 12
+map_pad_x = 40
+map_pad_y = 40
+
+map_WIDTH = map_block_WIDTH * bk_WIDTH + map_pad_x
+map_HEIGHT = map_block_HEIGHT * bk_HEIGHT + map_pad_y
+
+map_zeroes = (map_pad_x, map_pad_y)
 
 # window
-win_WIDTH = map_WIDTH_pixels + 160
-win_HEIGHT = map_HEIGHT_pixels + 80
+win_WIDTH = map_WIDTH + 160
+win_HEIGHT = map_HEIGHT + 80
 FPS = 120
 
 bg_COLOR = colors.WHITE
