@@ -13,10 +13,9 @@ import map_pattern
 pg.init()
 pg.mixer.init()
 screen = pg.display.set_mode((config.win_WIDTH, config.win_HEIGHT))
-pg.display.set_caption("My Game")
+pg.display.set_caption("Tower defence")
 clock = pg.time.Clock()
 
-# MAP = Map.generate_map(map_pattern.pattern_10x10, 10, 10)
 MAP = Map.generate_map(map_pattern.pattern_12x12, 12, 12)
 
 # Цикл игры
@@ -46,12 +45,12 @@ while running:
         MAP[index].update()
         prev_index = index
 
+    # заполнение поля
     for block in MAP:
         pg.draw.rect(screen, block.color, (block.pos_x, block.pos_y, block.height-1, block.width-1))
+
+    # переворачиваем экран
     pg.display.flip()
-    # Рендеринг
-    # screen.fill(colors.BLACK)
-    # После отрисовки всего, переворачиваем экран
 
 
 pg.quit()
