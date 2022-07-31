@@ -22,6 +22,7 @@ MAP = Map.generate_map(map_pattern.pattern_12x12, 12, 12)
 # Цикл игры
 index = 0
 running = True
+prev_index = 0
 
 while running:
     # Держим цикл на правильной скорости
@@ -36,12 +37,14 @@ while running:
     screen.fill(colors.Lavender)
 
     mouse_pos = pg.mouse.get_pos()
-    MAP[index].is_selected = False
-    MAP[index].update()
 
     index = Map.calculate_block_index(mouse_pos[1], mouse_pos[0])
-    MAP[index].is_selected = True
-    MAP[index].update()
+    MAP[prev_index].is_selected = False
+    MAP[prev_index].update()
+    if index < len(MAP):
+        MAP[index].is_selected = True
+        MAP[index].update()
+        prev_index = index
 
     for block in MAP:
         pg.draw.rect(screen, block.color, (block.pos_x, block.pos_y, block.height-1, block.width-1))
