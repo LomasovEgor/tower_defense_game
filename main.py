@@ -2,11 +2,15 @@
 from loguru import logger
 import pygame as pg
 import random
+from mouse import Mouse
 
 import config
 import colors
 from map import Map
 import map_pattern
+from enemy import Enemy
+from point import Point
+from move_queue import MoveQueue
 
 
 # Создаем игру и окно
@@ -18,10 +22,21 @@ clock = pg.time.Clock()
 
 MAP = Map.generate_map(map_pattern.pattern_12x12, 12, 12)
 
-# Цикл игры
 index = 0
 running = True
 prev_index = 0
+
+test_enemy = Enemy(Point(100, 100), (255, 0, 0), 20, 20)
+test_enemy1 = Enemy(Point(150, 150), (230, 20, 20), 20, 20)
+test_enemy_path = MoveQueue()
+test_enemy_path.append_point(100, 100)
+test_enemy_path.append_point(400, 400)
+test_enemy_path.append_point(800, 400)
+test_enemy_path.append_point(100, 100)
+test_enemy.move_points = test_enemy_path
+test_enemy1.move_points = test_enemy_path
+test_enemy.speed.set_coords(1, 1)
+test_enemy1.speed.set_coords(2, 2)
 
 while running:
     # Держим цикл на правильной скорости
@@ -35,9 +50,9 @@ while running:
     # Обновление
     screen.fill(colors.Lavender)
 
-    mouse_pos = pg.mouse.get_pos()
+    mouse_pos = Mouse.get_pos()
+    index = Map.calculate_block_index(mouse_pos[0], mouse_pos[1])
 
-    index = Map.calculate_block_index(mouse_pos[1], mouse_pos[0])
     MAP[prev_index].is_selected = False
     MAP[prev_index].update()
     if index < len(MAP):
@@ -47,7 +62,12 @@ while running:
 
     # заполнение поля
     for block in MAP:
-        pg.draw.rect(screen, block.color, (block.pos_x, block.pos_y, block.height-1, block.width-1))
+        block.draw(screen)
+
+    test_enemy.move()
+    test_enemy.draw(screen)
+    test_enemy1.move()
+    test_enemy1.draw(screen)
 
     # переворачиваем экран
     pg.display.flip()
