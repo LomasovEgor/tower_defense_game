@@ -17,19 +17,19 @@ class Enemy:
 
     def move(self):
         destination = self.move_points.get_first()
-        if abs(destination.x - self.pos.x) <= self.speed.x and abs(self.pos.y - destination.y) <= self.speed.y:
-            print('тут')
-            self.move_points.delete_first()
-        if abs(destination.x - self.pos.x) > self.speed.x:
-            if self.pos.x < destination.x:
-                self.pos.x += self.speed.x
-            elif self.pos.x > destination.x:
-                self.pos.x -= self.speed.x
-        if abs(self.pos.y - destination.y) > self.speed.y:
-            if self.pos.y < destination.y:
-                self.pos.y += self.speed.y
-            elif self.pos.y > destination.y:
-                self.pos.y -= self.speed.y
+        if destination is not None:
+            if abs(destination.x - self.pos.x) <= self.speed.x and abs(self.pos.y - destination.y) <= self.speed.y:
+                self.move_points.delete_first()
+            if abs(destination.x - self.pos.x) > self.speed.x:
+                if self.pos.x < destination.x:
+                    self.pos.x += self.speed.x
+                elif self.pos.x > destination.x:
+                    self.pos.x -= self.speed.x
+            if abs(self.pos.y - destination.y) > self.speed.y:
+                if self.pos.y < destination.y:
+                    self.pos.y += self.speed.y
+                elif self.pos.y > destination.y:
+                    self.pos.y -= self.speed.y
 
     def death(self):
         pass

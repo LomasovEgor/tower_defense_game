@@ -5,8 +5,11 @@ class MoveQueue:
     def __init__(self):
         self.points: list[Point] = []
 
-    def get_first(self) -> Point:
-        return self.points[0]
+    def get_first(self) -> Point | None:
+        try:
+            return self.points[0]
+        except IndexError:
+            return None
 
     def append_point(self, x: int, y: int):
         self.points.append(Point(x, y))

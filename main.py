@@ -55,6 +55,7 @@ while running:
 
     MAP[prev_index].is_selected = False
     MAP[prev_index].update()
+
     if index < len(MAP):
         MAP[index].is_selected = True
         MAP[index].update()

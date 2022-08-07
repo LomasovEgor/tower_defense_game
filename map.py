@@ -4,6 +4,12 @@ from loguru import logger
 
 
 class Map:
+    def __init__(self):
+        self.blocks_list
+        self.min_coords
+        self.max_coords
+        pass
+
     @staticmethod
     def generate_map(pattern: tuple, rows, columns) -> list[Block]:
         blocks_list = []
@@ -32,21 +38,22 @@ class Map:
 
     @staticmethod
     def calculate_block_index(x, y) -> int:
-        if Map._is_coords_on_map(x, y):
+        if Map.is_coords_on_map(x, y):
             x -= config.map_pad_x
             y -= config.map_pad_y
             row = x // config.bk_WIDTH
             column = y // config.bk_HEIGHT
-            index = row * config.map_block_WIDTH + column
+            index = column * config.map_block_WIDTH + row
             return index
         else:
             return config.map_block_HEIGHT * config.map_block_WIDTH
 
     @staticmethod
-    def _is_coords_on_map(x, y) -> bool:
+    def is_coords_on_map(x, y) -> bool:
         min_coords = (config.map_pad_x, config.map_pad_y)
         max_coords = (config.map_WIDTH, config.map_HEIGHT)
         if min_coords[0] < x < max_coords[0] and min_coords[1] < y < max_coords[1]:
             return True
         else:
             return False
+

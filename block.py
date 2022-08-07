@@ -1,7 +1,8 @@
-import random
 import colors
 import config as cfg
 from abc import ABC
+import pygame as pg
+from point import Point
 
 
 class Block(ABC):
@@ -20,6 +21,14 @@ class Block(ABC):
             self.color = self.selected_color
         else:
             self.color = self.unselected_color
+
+    def draw(self, screen: pg.Surface):
+        pg.draw.rect(screen, self.color, (self.pos_x, self.pos_y, self.height - 1, self.width - 1))
+
+    def get_center(self) -> tuple[int, int]:
+        center_x = self.pos_x + self.width // 2
+        center_y = self.pos_y + self.height // 2
+        return center_x, center_y
 
 
 class MapBlock(Block):
