@@ -2,6 +2,7 @@
 from loguru import logger
 import pygame as pg
 import random
+import copy
 from mouse import Mouse
 
 import config
@@ -11,6 +12,7 @@ import map_pattern
 from enemy import Enemy
 from point import Point
 from move_queue import MoveQueue
+from menu import Menu
 
 
 # Создаем игру и окно
@@ -26,15 +28,19 @@ index = 0
 running = True
 prev_index = 0
 
-test_enemy = Enemy(Point(100, 100), (255, 0, 0), 20, 20)
-test_enemy1 = Enemy(Point(150, 150), (230, 20, 20), 20, 20)
+test_enemy = Enemy(Point(246, 734), (255, 0, 0), 20, 20)
+test_enemy1 = Enemy(Point(246, 734), (230, 20, 20), 20, 20)
 test_enemy_path = MoveQueue()
-test_enemy_path.append_point(100, 100)
-test_enemy_path.append_point(400, 400)
-test_enemy_path.append_point(800, 400)
-test_enemy_path.append_point(100, 100)
+test_enemy_path.append_point(246, 734)
+test_enemy_path.append_point(248, 252)
+test_enemy_path.append_point(369, 251)
+test_enemy_path.append_point(369, 553)
+test_enemy_path.append_point(488, 552)
+test_enemy_path.append_point(487, 249)
+test_enemy_path.append_point(728, 248)
+test_enemy_path.append_point(728, 670)
 test_enemy.move_points = test_enemy_path
-test_enemy1.move_points = test_enemy_path
+test_enemy1.move_points = copy.deepcopy(test_enemy_path)
 test_enemy.speed.set_coords(1, 1)
 test_enemy1.speed.set_coords(2, 2)
 
@@ -46,6 +52,9 @@ while running:
         # check for closing window
         if event.type == pg.QUIT:
             running = False
+        if event.type == pg.KEYDOWN:
+            if event.key == pg.K_z:
+                logger.info(f'test_enemy_path.append_point{Mouse.get_pos()}')
 
     # Обновление
     screen.fill(colors.Lavender)
@@ -69,6 +78,11 @@ while running:
     test_enemy.draw(screen)
     test_enemy1.move()
     test_enemy1.draw(screen)
+
+    if pg.mouse.get_pressed()[0] and Mouse.is_on_map():
+        menu = Menu(100, 100, colors.GREEN)
+        mouse_pos = Mouse.get_pos()
+        menu.draw(screen, Point(mouse_pos[0], mouse_pos[1]))
 
     # переворачиваем экран
     pg.display.flip()

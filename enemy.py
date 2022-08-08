@@ -19,6 +19,7 @@ class Enemy:
         destination = self.move_points.get_first()
         if destination is not None:
             if abs(destination.x - self.pos.x) <= self.speed.x and abs(self.pos.y - destination.y) <= self.speed.y:
+                self.pos.x, self.pos.y = destination.x, destination.y
                 self.move_points.delete_first()
             if abs(destination.x - self.pos.x) > self.speed.x:
                 if self.pos.x < destination.x:
