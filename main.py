@@ -1,4 +1,3 @@
-# Pygame шаблон - скелет для нового проекта Pygame
 from loguru import logger
 import pygame as pg
 import random

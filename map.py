@@ -1,14 +1,10 @@
 import config
-from block import Block, MapBlock, PathBlock, ExitBlock, EnterBlock
+from colored_blocks import Block, MapBlock, PathBlock, ExitBlock, EnterBlock
+from tower import Tower
 from loguru import logger
 
 
 class Map:
-    def __init__(self):
-        self.blocks_list
-        self.min_coords
-        self.max_coords
-        pass
 
     @staticmethod
     def generate_map(pattern: tuple, rows, columns) -> list[Block]:
@@ -30,6 +26,8 @@ class Map:
                     block = EnterBlock(*coords)
                 elif pattern[index] == 9:
                     block = ExitBlock(*coords)
+                elif pattern[index] == 5:
+                    block = Tower(coords[0], coords[1], 2, 10, 1.0, 'image/towers/tower.bmp')
                 else:
                     block = MapBlock(*coords)
                 index += 1
@@ -56,4 +54,3 @@ class Map:
             return True
         else:
             return False
-

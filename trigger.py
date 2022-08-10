@@ -8,3 +8,6 @@ class Trigger:
 
     def check_collision(self, rect: pg.Rect) -> bool:
         return self.collision_model.colliderect(rect)
+
+    def check_collisions(self, rects: list[pg.Rect]) -> list:
+        return self.collision_model.collidelistall(rects)

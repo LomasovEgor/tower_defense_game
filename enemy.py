@@ -4,13 +4,14 @@ from move_queue import MoveQueue
 
 
 class Enemy:
-    def __init__(self, spawn_pont: Point, color: tuple[int, int, int], height: int, width: int):
-        self.pos = spawn_pont
+    def __init__(self, spawn_point: Point, color: tuple[int, int, int], height: int, width: int):
+        self.pos = spawn_point
         self.color = color
         self.height = height
         self.width = width
         self.speed = Point(0, 0)
         self.move_points = MoveQueue()
+        self.collision_model = pg.Rect(self.pos.x, self.pos.y, self.width, self.height)
 
     def set_move_points(self, move_points: MoveQueue):
         self.move_points = move_points
